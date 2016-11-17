@@ -13,6 +13,7 @@ namespace WebApiServerApp
         public string Insight { get; set; }
     }
 
+    [Authorize]
     public class AmazingSecretsController : ApiController
     {
         private List<AmazingSecret> allSecrets = new List<AmazingSecret>(new []
