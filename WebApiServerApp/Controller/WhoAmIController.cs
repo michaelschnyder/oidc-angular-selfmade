@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace WebApiServerApp
+namespace WebApiServerApp.Controller
 {
     public class WhoAmIController : ApiController
     {
