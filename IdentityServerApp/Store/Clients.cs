@@ -31,8 +31,12 @@ namespace IdentityServerApp.Store
                     
                     RedirectUris = new List<string>
                     {
-                        "http://webapp.amazing.ctd:8000/#/callback/login",
+                        "http://webapp.amazing.ctd:8000/#/auth/login/"
                     },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://webapp.amazing.ctd:8000/#/auth/logout/"
+                    }
 
                     //AllowedCorsOrigins = new List<string>
                     //{

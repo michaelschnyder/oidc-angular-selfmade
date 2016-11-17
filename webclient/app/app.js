@@ -24,9 +24,9 @@ run(['$rootScope', '$window', function($rootScope, $window) {
   var responseType = 'id_token';
   var requestScopes = 'openid profile';
 
-  // About Me
+  // Specific Client Details
   var clientId = 'myAppId1234567890'; 
-  var redirectUri = 'http://webapp.amazing.ctd:8000/#/callback/login';
+  var loginRedirectUri = 'http://webapp.amazing.ctd:8000/#/auth/login/';
 
   $rootScope.login = function() {
 
@@ -39,7 +39,7 @@ run(['$rootScope', '$window', function($rootScope, $window) {
               + encodeURIComponent(clientId) 
               
               + "&redirect_uri=" 
-              + encodeURIComponent(redirectUri) 
+              + encodeURIComponent(loginRedirectUri) 
               
               + "&scope=" 
               + encodeURIComponent(requestScopes)
