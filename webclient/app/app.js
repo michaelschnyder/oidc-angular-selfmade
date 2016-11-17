@@ -10,6 +10,14 @@ angular.module('myApp', [
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
 
+    // Register callback route
+    $routeProvider.
+        when('/auth/login/:data', {
+            template: '',
+            controller: ['$routeParams', function ($routeParams) {
+                console.debug('oidc-angular: handling login-callback', $routeParams.data);
+            }]
+        });        
 
 
 
