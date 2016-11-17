@@ -17,6 +17,12 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
             controller: ['$routeParams', function ($routeParams) {
                 console.debug('oidc-angular: handling login-callback', $routeParams.data);
             }]
+        }).
+        when('/auth/logout', {
+            template: '',
+            controller: [function () {
+                console.debug('oidc-angular: handling logout-callback');
+            }]
         });        
 
 
