@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
+  'LocalStorageModule',
   'myApp.public.home',
   'myApp.public.whoAmI',
   'myApp.secured',
@@ -15,7 +16,19 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
         when('/auth/login/:data', {
             template: '',
             controller: ['$routeParams', function ($routeParams) {
+            controller: ['$routeParams', 'localStorageService', '$location', function ($routeParams, localStorageService, $location) {
+
+                // It's always nice to have the original response somewhere
                 console.debug('oidc-angular: handling login-callback', $routeParams.data);
+                
+                // parse the encoded data to get a key-value representation
+                var parsed = parseQueryString($routeParams.data);
+
+                // store id_token in localStorage
+                localStorageService.set('id_token', parsed['id_token']);
+
+                // Redirect to home
+                $location.path('/');
             }]
         }).
         when('/auth/logout', {
