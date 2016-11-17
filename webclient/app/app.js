@@ -8,14 +8,23 @@ angular.module('myApp', [
   'myApp.public.whoAmI',
   'myApp.secured',
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
+factory('tokenInjector', ['localStorageService', function(localStorageService) {  
+    var tokenInjector = {
+        request: function(config) {
+            config.headers['Authentication'] = 'Bearer ' + localStorageService.get('id_token');
+            return config;
+        }
+    };
+    return tokenInjector;
+}]).
+
+config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
     // Register callback route
     $routeProvider.
         when('/auth/login/:data', {
             template: '',
-            controller: ['$routeParams', function ($routeParams) {
             controller: ['$routeParams', 'localStorageService', '$location', function ($routeParams, localStorageService, $location) {
 
                 // It's always nice to have the original response somewhere
@@ -31,6 +40,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
                 $location.path('/');
             }]
         }).
+
         when('/auth/logout', {
             template: '',
             controller: [function () {
@@ -38,10 +48,12 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
             }]
         });        
 
-
-
+  // Default route
   $routeProvider.otherwise({redirectTo: '/home'});
-  
+
+  // Register Http Interceptor which sents the token for each request
+  $httpProvider.interceptors.push('tokenInjector');
+
 }]).
 
 run(['$rootScope', '$window', function($rootScope, $window) {
