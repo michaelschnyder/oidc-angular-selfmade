@@ -20,6 +20,8 @@ namespace WebApiServerApp
             httpConfig.MapHttpAttributeRoutes();
 
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            httpConfig.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
             httpConfig.Formatters.Remove(httpConfig.Formatters.XmlFormatter);
             appBuilder.UseWebApi(httpConfig);
 
