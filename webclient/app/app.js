@@ -39,13 +39,6 @@ config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvide
                 // Redirect to home
                 $location.path('/');
             }]
-        }).
-
-        when('/auth/logout', {
-            template: '',
-            controller: [function () {
-                console.debug('oidc-angular: handling logout-callback');
-            }]
         });        
 
   // Default route

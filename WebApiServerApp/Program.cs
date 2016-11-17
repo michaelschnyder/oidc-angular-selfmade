@@ -9,11 +9,6 @@ namespace WebApiServerApp
         {
             Console.Title = "WebApiServerApp";
 
-            //Log.Logger = new LoggerConfiguration()
-            //    .WriteTo
-            //    .LiterateConsole(outputTemplate: "{Timestamp:HH:MM} [{Level}] ({Name:l}){NewLine} {Message}{NewLine}{Exception}")
-            //    .CreateLogger();
-
             const string url = "http://api.amazing.ctd:80";
             using (WebApp.Start<Startup>(url))
             {

@@ -27,7 +27,7 @@ namespace WebApiServerApp
                 }
             });
 
-            // Enable CORS
+            // Enable CORS, since we are using the API on localhost:8000
             appBuilder.UseCors(CorsOptions.AllowAll);
 
             // Web API Configuration & Registration
@@ -35,8 +35,11 @@ namespace WebApiServerApp
             httpConfig.MapHttpAttributeRoutes();
 
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            // Prevent ReferenceLoops when serializing current Principal
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
+            // Disabling XML is good practice
             httpConfig.Formatters.Remove(httpConfig.Formatters.XmlFormatter);
             appBuilder.UseWebApi(httpConfig);
 
