@@ -12,7 +12,7 @@ angular.module('myApp', [
 factory('tokenInjector', ['localStorageService', function(localStorageService) {  
     var tokenInjector = {
         request: function(config) {
-            config.headers['Authentication'] = 'Bearer ' + localStorageService.get('id_token');
+            config.headers['Authorization'] = 'Bearer ' + localStorageService.get('id_token');
             return config;
         }
     };
