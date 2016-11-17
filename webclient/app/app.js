@@ -14,5 +14,21 @@ config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvide
   // Default route
   $routeProvider.otherwise({redirectTo: '/home'});
 
+}]).
+
+run(['$rootScope', function($rootScope) {
+  
+  // Some OAuth config
+  var authorizationUri = '???';
+  var requestScopes = 'openid profile';
+  var responseType = 'id_token';
+
+  // Specific Client Details
+  var clientId = '???'; 
+  var loginRedirectUri = 'http://webapp.amazing.ctd:8000/#/auth/login/';
+
+  $rootScope.login = function() {
+
+  };
 }])
 ;
