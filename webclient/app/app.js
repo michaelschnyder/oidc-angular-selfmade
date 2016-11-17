@@ -9,7 +9,20 @@ angular.module('myApp', [
   'myApp.secured',
 ]).
 
+factory('tokenInjector', ['localStorageService', function(localStorageService) {  
+    var tokenInjector = {
+        request: function(config) {
+            config.headers['Authorization'] = 'Bearer ' + localStorageService.get('id_token');
+            return config;
+        }
+    };
+    return tokenInjector;
+}]).
+
 config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+
+  // Register Http Interceptor which sents the token for each request
+  $httpProvider.interceptors.push('tokenInjector');
 
   // Register callback route
    $routeProvider.
