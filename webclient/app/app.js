@@ -16,7 +16,7 @@ config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvide
 
 }]).
 
-run(['$rootScope', function($rootScope) {
+run(['$rootScope', '$window', function($rootScope, $window) {
   
   // Some OAuth config
   var authorizationUri = 'http://identity.amazing.ctd/connect/authorize';
@@ -29,6 +29,28 @@ run(['$rootScope', function($rootScope) {
 
   $rootScope.login = function() {
 
+    var url = authorizationUri
+
+              + "?response_type="
+              + encodeURIComponent(responseType)
+              
+              + "&client_id=" 
+              + encodeURIComponent(clientId) 
+              
+              + "&redirect_uri=" 
+              + encodeURIComponent(loginRedirectUri) 
+              
+              + "&scope=" 
+              + encodeURIComponent(requestScopes)
+              
+              + "&nonce=" 
+              + encodeURIComponent('RandomNonce')
+              
+              + "&state=" 
+              + encodeURIComponent('RandomState')
+              ; 
+
+    $window.location.href = url;
   };
 }])
 ;
