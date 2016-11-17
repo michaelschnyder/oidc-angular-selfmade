@@ -11,6 +11,18 @@ angular.module('myApp', [
 
 config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
+  // Register callback route
+   $routeProvider.
+      when('/auth/login/:data', {
+        template: '',
+        controller: ['$routeParams', function ($routeParams) {
+
+          // It's always nice to have the original response somewhere
+          console.debug('oidc-angular: handling login-callback', $routeParams.data);
+          
+      }]
+    });        
+
   // Default route
   $routeProvider.otherwise({redirectTo: '/home'});
 
